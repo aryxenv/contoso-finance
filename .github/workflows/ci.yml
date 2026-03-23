@@ -57,14 +57,17 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
       - name: Install dependencies
-        run: pip install -r apps/server/requirements-dev.txt
+        run: uv pip install --system -r apps/server/requirements-dev.txt
 
       - name: Lint
-        run: ruff check apps/server/src/ apps/server/tests/
+        run: uv run ruff check apps/server/src/ apps/server/tests/
 
       - name: Test
-        run: pytest apps/server/tests/ -v
+        run: uv run pytest apps/server/tests/ -v
         env:
           CONTOSO_DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/contoso_finance
           PYTHONPATH: apps/server/src
