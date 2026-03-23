@@ -1,0 +1,5 @@
+[lint]
+select = ["E", "F", "I", "N", "W"]
+
+[format]
+line-width = 120
