@@ -129,6 +129,7 @@ Each domain follows a consistent internal structure:
 
 - **Node.js** 20+
 - **Python** 3.12+
+- **uv** (Python package manager) — [install guide](https://docs.astral.sh/uv/getting-started/installation/)
 - **PostgreSQL** 16+ (or use Docker)
 
 ### Quick Start (Docker)
@@ -149,7 +150,7 @@ npm install
 cd apps/client && npm install
 
 # Server
-cd apps/server && pip install -r requirements-dev.txt
+cd apps/server && uv pip install -r requirements-dev.txt
 
 # Shared types
 cd packages/shared-types && npm install
@@ -165,11 +166,11 @@ npm run dev      # starts client + server via Turborepo
 cd apps/client && npm run dev
 
 # Server only (http://localhost:8000)
-cd apps/server && uvicorn contoso_finance.main:app --reload --app-dir src
+cd apps/server && uv run uvicorn contoso_finance.main:app --reload --app-dir src
 
 # Run tests
 cd apps/client && npm run test
-cd apps/server && python -m pytest tests/ -v
+cd apps/server && uv run pytest tests/ -v
 ```
 
 ### API Health Check
