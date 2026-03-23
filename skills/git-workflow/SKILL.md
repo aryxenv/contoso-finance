@@ -122,6 +122,33 @@ refactor(extract): simplify multi-sheet reading logic
 test(transform): add edge cases for ordinal rank parsing
 ```
 
+## Pre-Push Lint Check
+
+**Before pushing a branch, always run the linter against the directories you changed.** This catches lint failures locally instead of waiting for CI to fail — a very common pain point.
+
+### How to determine what to lint
+
+Check which top-level areas you touched, then run the appropriate linter:
+
+```bash
+# See which files changed on your branch
+git diff --name-only main
+
+# If you changed files in apps/server/ — run ruff
+cd apps/server && uv run ruff check src/ tests/
+
+# If you changed files in apps/client/ or packages/shared-types/ — run eslint / tsc
+cd apps/client && npm run lint
+cd packages/shared-types && npm run build
+```
+
+### Rules
+
+- **Always lint before pushing.** If lint fails, fix the issues and amend or add a commit before pushing.
+- Only lint the directories you actually changed — no need to lint the entire repo.
+- If you changed both `apps/server/` and `apps/client/`, run both linters.
+- This applies to every push, not just the final one before a PR.
+
 ## Pull Requests
 
 ### PR titles
@@ -156,3 +183,4 @@ docs: add star schema diagram to README
 - ❌ Squash an entire feature into one giant commit
 - ❌ Use vague commit messages like `"update files"` or `"WIP"`
 - ❌ Use raw `git push` + GitHub web UI when `gh pr create` can do it
+- ❌ Push without running the linter on changed directories first

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "uvicorn contoso_finance.main:app --reload --host 0.0.0.0 --port 8000 --app-dir src",
+    "dev": "uv run uvicorn contoso_finance.main:app --reload --host 0.0.0.0 --port 8000 --app-dir src",
     "build": "echo 'Python server — no build step required'",
-    "test": "python -m pytest tests/ -v",
-    "lint": "ruff check src/ tests/"
+    "test": "uv run pytest tests/ -v",
+    "lint": "uv run ruff check src/ tests/"
   }
 }

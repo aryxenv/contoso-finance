@@ -54,6 +54,30 @@ Write code that is clear, tested, and maintainable. This platform is built to la
 
 ## Conventions
 
+### Python tooling — always use `uv`
+
+**All Python package management and script execution in the server (`apps/server/`) MUST use [`uv`](https://docs.astral.sh/uv/).**
+
+- Use `uv pip install` instead of `pip install`.
+- Use `uv run` to execute Python tools (`uvicorn`, `pytest`, `ruff`, `alembic`).
+- Dependencies are managed via `requirements.txt` and `requirements-dev.txt` — **no `pyproject.toml`** for dependency management.
+- Do **not** use raw `pip`, `python -m pip`, or `python -m` commands. Always prefix with `uv`.
+
+```bash
+# Install dependencies
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
+
+# Run the server
+uv run uvicorn contoso_finance.main:app --reload --app-dir src
+
+# Run tests and linting
+uv run pytest tests/ -v
+uv run ruff check src/ tests/
+```
+
+### Skill files
+
 This repo uses **skill files** in `skills/` to define detailed conventions for specific workflows. These are the authoritative references:
 
 - **Diagrams** — `skills/visuals/SKILL.md` defines the Excalidraw-only diagramming workflow, including dark-mode design rules, the export pipeline, naming conventions, and embedding standards. All diagrams must use Excalidraw.
