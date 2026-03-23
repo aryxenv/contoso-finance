@@ -65,6 +65,120 @@ Contoso Finance follows a **modular, domain‑oriented design**:
 
 This strikes a balance between the simplicity of a single platform and the clarity and scalability of service‑oriented design.
 
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Client | React + Vite + TypeScript + SWC |
+| Server | Python + FastAPI |
+| Database | PostgreSQL (async via SQLAlchemy + asyncpg) |
+| Migrations | Alembic |
+| Monorepo | Turborepo + npm workspaces |
+| Containerization | Docker + docker‑compose |
+| CI/CD | GitHub Actions |
+
+### Repository Layout
+
+```
+contoso-finance/
+├── apps/
+│   ├── client/              # React (Vite) web application
+│   └── server/              # FastAPI backend
+│       └── src/contoso_finance/
+│           ├── domains/     # Business domain modules
+│           │   ├── billing/
+│           │   ├── payments/
+│           │   ├── reporting/
+│           │   └── settlements/
+│           └── shared/      # Cross‑cutting packages
+│               ├── auth/
+│               ├── database/
+│               ├── middleware/
+│               └── types/
+├── packages/
+│   └── shared-types/        # TypeScript API type definitions
+├── docker/                  # Dockerfiles + docker‑compose
+├── excalidraw/              # Diagrams (Excalidraw sources + exports)
+└── skills/                  # Copilot skill files
+```
+
+### Domain Modules
+
+Each domain follows a consistent internal structure:
+
+| File | Responsibility |
+|---|---|
+| `router.py` | FastAPI route definitions |
+| `service.py` | Business logic |
+| `repository.py` | Data access (async SQLAlchemy) |
+| `models.py` | ORM models |
+| `schemas.py` | Pydantic request/response schemas |
+
+| Domain | API Prefix | Key Capabilities |
+|---|---|---|
+| **Billing** | `/api/billing` | Invoice CRUD, send, mark paid |
+| **Payments** | `/api/payments` | Process payments, refunds, payment methods |
+| **Reporting** | `/api/reporting` | Generate reports, dashboard metrics |
+| **Settlements** | `/api/settlements` | Create, reconcile, approve settlements |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** 20+
+- **Python** 3.12+
+- **PostgreSQL** 16+ (or use Docker)
+
+### Quick Start (Docker)
+
+```bash
+docker compose -f docker/docker-compose.yml up --build
+```
+
+This starts the client (port 3000), server (port 8000), and PostgreSQL.
+
+### Local Development
+
+```bash
+# Install root dependencies (Turborepo)
+npm install
+
+# Client
+cd apps/client && npm install
+
+# Server
+cd apps/server && pip install -r requirements-dev.txt
+
+# Shared types
+cd packages/shared-types && npm install
+
+# Run everything
+npm run dev      # starts client + server via Turborepo
+```
+
+#### Individual services
+
+```bash
+# Client only (http://localhost:5173)
+cd apps/client && npm run dev
+
+# Server only (http://localhost:8000)
+cd apps/server && uvicorn contoso_finance.main:app --reload --app-dir src
+
+# Run tests
+cd apps/client && npm run test
+cd apps/server && python -m pytest tests/ -v
+```
+
+### API Health Check
+
+```bash
+curl http://localhost:8000/health
+# → {"status": "healthy", "service": "Contoso Finance"}
+```
+
 ---
 
 ## Why This Repository Exists
