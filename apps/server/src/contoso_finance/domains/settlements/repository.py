@@ -1,8 +1,6 @@
 """Data access layer for the settlements domain."""
 
-import math
 import uuid
-from decimal import Decimal
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
