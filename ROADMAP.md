@@ -10,7 +10,6 @@ No dependencies. Do these first to set up the base.
 
 | Issue | What |
 |-------|------|
-| **#8** | Create initial Alembic migration — **blocks all backend work** |
 | #10 | Set up client test infrastructure (Vitest + Testing Library) |
 | #17 | Add pre-commit hooks (Husky) |
 | #18 | Set up Prettier |
@@ -20,7 +19,7 @@ No dependencies. Do these first to set up the base.
 
 ### Phase 1 — Core Backend
 
-All depend on **#8**. Parallel after that.
+Initial Alembic migration is complete. These are all parallel.
 
 | Issue | What |
 |-------|------|
@@ -77,7 +76,6 @@ After features are built.
 **Hard** — will break or require rework if ignored:
 
 ```
-#8 → #35, #12, #14, #16, #11, #22
 #35 → #13
 #13 → #34, #33
 #12 + #14 → #15
