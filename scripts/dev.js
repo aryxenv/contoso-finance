@@ -61,7 +61,19 @@ async function main() {
     shell: true,
   });
 
-  turbo.on("exit", (code) => process.exit(code ?? 0));
+  function stopPostgres() {
+    console.log("\n\x1b[1m🐘 Stopping PostgreSQL...\x1b[0m\n");
+    try {
+      execSync(`docker compose -f "${COMPOSE_FILE}" down`, { stdio: "inherit" });
+    } catch {
+      // ignore errors during cleanup
+    }
+  }
+
+  turbo.on("exit", (code) => {
+    stopPostgres();
+    process.exit(code ?? 0);
+  });
 
   process.on("SIGINT", () => {
     turbo.kill("SIGINT");
