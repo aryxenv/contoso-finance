@@ -61,21 +61,29 @@ async function main() {
     shell: true,
   });
 
-  function cleanup(code) {
+  let cleaning = false;
+  function cleanup() {
+    if (cleaning) return;
+    cleaning = true;
     console.log("\n\x1b[1m🐘 Stopping PostgreSQL...\x1b[0m\n");
     try {
-      execSync(`docker compose -f "${COMPOSE_FILE}" down`, { stdio: "inherit" });
+      execSync(`docker compose -f "${COMPOSE_FILE}" down`, {
+        stdio: "inherit",
+      });
     } catch {
       // ignore errors during cleanup
     }
-    process.exit(code ?? 0);
+    process.exit(0);
   }
 
-  turbo.on("exit", (code) => cleanup(code));
-
+  turbo.on("exit", () => cleanup());
   process.on("SIGINT", () => {
-    try { turbo.kill(); } catch { /* already dead */ }
-    cleanup(0);
+    try {
+      turbo.kill();
+    } catch {
+      /* already dead */
+    }
+    cleanup();
   });
 }
 
