@@ -76,11 +76,25 @@ uv run pytest tests/ -v
 uv run ruff check src/ tests/
 ```
 
+### Frontend UI — Fluent UI v9
+
+**All client UI in `apps/client/` MUST use [Fluent UI v9](https://react.fluentui.dev/) (`@fluentui/react-components`).**
+
+- Use Fluent components (`Button`, `Input`, `Table`, `Card`, `Dialog`, etc.) — not raw HTML elements.
+- Use `makeStyles` for custom styling — not CSS files or inline styles.
+- Reference theme tokens (`tokens.colorNeutralBackground1`, etc.) for colors — not hardcoded hex values.
+- The app uses a **custom GitHub-style dark theme** (`apps/client/src/theme.ts`). All UI must look correct on dark backgrounds.
+- Use `@fluentui/react-icons` for icons.
+- **Before building custom UI**, consult the `mcp-fluent-ui` MCP server (configured in `.vscode/mcp.json`) to check if a Fluent component exists for the pattern.
+
+See `skills/fluent-ui/SKILL.md` for the full convention reference.
+
 ### Skill files
 
 This repo uses **skill files** in `skills/` to define detailed conventions for specific workflows. These are the authoritative references:
 
+- **Fluent UI** — `skills/fluent-ui/SKILL.md` defines the component library, dark theme, styling patterns, and MCP server usage. All frontend UI must use Fluent UI v9.
 - **Diagrams** — `skills/visuals/SKILL.md` defines the Excalidraw-only diagramming workflow, including dark-mode design rules, the export pipeline, naming conventions, and embedding standards. All diagrams must use Excalidraw.
 - **Git workflow** — `skills/git-workflow/SKILL.md` defines branching, conventional commits, atomic commit granularity, and the PR workflow using `gh` CLI. All changes go through feature branches and pull requests — never commit directly to `main`.
 
-Refer to the relevant skill file before starting work in either area.
+Refer to the relevant skill file before starting work in any of these areas.

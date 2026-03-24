@@ -5,85 +5,10 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
-  color: #1a1a2e;
-  background: #f5f6fa;
+  background: #0d1117;
+  color: #e6edf3;
 }
 
-.app-layout {
-  display: flex;
-  flex-direction: column;
+#root {
   min-height: 100vh;
-}
-
-.app-header {
-  display: flex;
-  align-items: center;
-  height: 56px;
-  padding: 0 24px;
-  background: #1a1a2e;
-  color: #fff;
-}
-
-.app-header h1 {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.app-body {
-  display: flex;
-  flex: 1;
-}
-
-.app-sidebar {
-  width: 220px;
-  background: #fff;
-  border-right: 1px solid #e2e4e9;
-  padding: 16px 0;
-}
-
-.app-sidebar ul {
-  list-style: none;
-}
-
-.app-sidebar li {
-  margin: 0;
-}
-
-.app-sidebar a {
-  display: block;
-  padding: 10px 24px;
-  color: #4a4a68;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background 0.15s, color 0.15s;
-}
-
-.app-sidebar a:hover {
-  background: #f0f1f5;
-  color: #1a1a2e;
-}
-
-.app-sidebar a.active {
-  background: #e8eaff;
-  color: #3b3bbd;
-  font-weight: 600;
-}
-
-.app-content {
-  flex: 1;
-  padding: 32px;
-}
-
-.app-content h2 {
-  margin-bottom: 8px;
-  font-size: 24px;
-  color: #1a1a2e;
-}
-
-.app-content p {
-  color: #6b6b80;
-  font-size: 15px;
 }
