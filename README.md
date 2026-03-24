@@ -130,34 +130,32 @@ Each domain follows a consistent internal structure:
 - **Node.js** 20+
 - **Python** 3.12+
 - **uv** (Python package manager) — [install guide](https://docs.astral.sh/uv/getting-started/installation/)
-- **PostgreSQL** 16+ (or use Docker)
+- **Docker** (for PostgreSQL) — [install guide](https://docs.docker.com/get-docker/)
 
-### Quick Start (Docker)
+### Quick Start (Docker only)
 
 ```bash
 docker compose -f docker/docker-compose.yml up --build
 ```
 
-This starts the client (port 3000), server (port 8000), and PostgreSQL.
+This starts the client (port 3000), server (port 8000), and PostgreSQL — fully containerized.
 
 ### Local Development
 
 ```bash
-# Install root dependencies (Turborepo)
-npm install
+# Install dependencies
+npm install                                        # root + client + shared-types
+cd apps/server && uv pip install -r requirements-dev.txt  # server
 
-# Client
-cd apps/client && npm install
-
-# Server
-cd apps/server && uv pip install -r requirements-dev.txt
-
-# Shared types
-cd packages/shared-types && npm install
-
-# Run everything
-npm run dev      # starts client + server via Turborepo
+# Start everything (PostgreSQL + migrations + client + server)
+npm run dev
 ```
+
+`npm run dev` automatically:
+1. Starts a PostgreSQL container via Docker
+2. Waits for it to be healthy
+3. Runs Alembic database migrations
+4. Launches the client and server via Turborepo
 
 #### Individual services
 
@@ -168,9 +166,17 @@ cd apps/client && npm run dev
 # Server only (http://localhost:8000)
 cd apps/server && uv run uvicorn contoso_finance.main:app --reload --app-dir src
 
+# Turbo only (no Postgres/migrations — assumes DB is already running)
+npm run dev:turbo
+
 # Run tests
 cd apps/client && npm run test
 cd apps/server && uv run pytest tests/ -v
+
+# Database
+cd apps/server && npm run db:upgrade      # apply migrations
+cd apps/server && npm run db:downgrade    # rollback one migration
+cd apps/server && npm run db:reset        # full reset
 ```
 
 ### API Health Check
