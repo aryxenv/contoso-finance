@@ -2,10 +2,15 @@
 
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
+# Import all domain models so they register on Base.metadata
+import contoso_finance.domains.billing.models  # noqa: F401
+import contoso_finance.domains.payments.models  # noqa: F401
+import contoso_finance.domains.reporting.models  # noqa: F401
+import contoso_finance.domains.settlements.models  # noqa: F401
+from alembic import context
 from contoso_finance.config import settings
 from contoso_finance.shared.database.base import Base
 
