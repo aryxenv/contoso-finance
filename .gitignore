@@ -31,7 +31,6 @@ htmlcov/
 coverage/
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
