@@ -73,7 +73,9 @@ async function main() {
     } catch {
       // ignore errors during cleanup
     }
-    process.exit(0);
+    console.log("\n\x1b[32m✓ All stopped. Press Enter to exit.\x1b[0m");
+    process.stdin.once("data", () => process.exit(0));
+    process.stdin.resume();
   }
 
   turbo.on("exit", () => cleanup());
