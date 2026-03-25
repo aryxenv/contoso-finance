@@ -29,7 +29,11 @@ This is a template repository, however the template does not transfer issues. He
   ```txt
   Read all the issues available on the current git repo. these issues must be copied over to (NOT TRANSFERED) to     
   https://github.com/<USER>/<YOUR_REPO_NAME>, I am the owner of this so it should be possible through gh 
-  cli. Include closed issues and update cross-references in issue bodies. Try to do as much in parallel as possible, where safe.
+  cli. Include closed issues and update cross-references in issue bodies. Try to do as much in parallel as possible, where safe. 
+
+  IMPORTANT:
+  - KEEP ISSUE ORDER IN TACT
+  - DO NOT ADD REFERENCE FROM WHERE IT WAS COPIED
   ```
 7. (optional) It may ask you some questions, select what you believe is best.
 8. Select `autopilot + /fleet` option.
