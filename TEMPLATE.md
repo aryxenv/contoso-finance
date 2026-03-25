@@ -34,6 +34,7 @@ This is a template repository, however the template does not transfer issues. He
   IMPORTANT:
   - KEEP ISSUE ORDER IN TACT
   - DO NOT ADD REFERENCE FROM WHERE IT WAS COPIED
+  - @ROADMAP.md NUMBERING MUST ALIGN WITH ISSUES YOU CREATE
   ```
 7. (optional) It may ask you some questions, select what you believe is best.
 8. Select `autopilot + /fleet` option.
