@@ -12,11 +12,11 @@ Contoso Finance sits at the center of a company's financial operations, connecti
 
 ### Core Capabilities
 
-| Capability | Description |
-|---|---|
-| **Payments & Invoicing** | Create, send, track, and reconcile invoices and payments across multiple channels. |
-| **Financial Operations** | Manage accounts, balances, transactions, and settlements in near real time. |
-| **Reporting & Insights** | Give finance teams visibility into cash flow, revenue trends, and operational metrics. |
+| Capability                    | Description                                                                                |
+| ----------------------------- | ------------------------------------------------------------------------------------------ |
+| **Payments & Invoicing**      | Create, send, track, and reconcile invoices and payments across multiple channels.         |
+| **Financial Operations**      | Manage accounts, balances, transactions, and settlements in near real time.                |
+| **Reporting & Insights**      | Give finance teams visibility into cash flow, revenue trends, and operational metrics.     |
 | **Automation & Integrations** | Connect with internal tools and external partners to automate routine financial workflows. |
 
 ---
@@ -34,12 +34,12 @@ Contoso Finance is designed for organizations that have outgrown spreadsheets an
 
 ## Product Philosophy
 
-| Principle | What It Means |
-|---|---|
-| ✅ **Simplicity over complexity** | Financial systems should be understandable and predictable, not opaque and fragile. |
-| ✅ **Strong domain boundaries** | Each financial capability is clearly defined and owned, reducing coupling and improving reliability. |
-| ✅ **Secure by default** | Security, compliance, and auditability are first‑class concerns, not add‑ons. |
-| ✅ **Built to evolve** | The platform is designed to grow with the business — from a single product team to a large organization. |
+| Principle                         | What It Means                                                                                            |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| ✅ **Simplicity over complexity** | Financial systems should be understandable and predictable, not opaque and fragile.                      |
+| ✅ **Strong domain boundaries**   | Each financial capability is clearly defined and owned, reducing coupling and improving reliability.     |
+| ✅ **Secure by default**          | Security, compliance, and auditability are first‑class concerns, not add‑ons.                            |
+| ✅ **Built to evolve**            | The platform is designed to grow with the business — from a single product team to a large organization. |
 
 ---
 
@@ -67,15 +67,15 @@ This strikes a balance between the simplicity of a single platform and the clari
 
 ### Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Client | React + Vite + TypeScript + SWC |
-| Server | Python + FastAPI |
-| Database | PostgreSQL (async via SQLAlchemy + asyncpg) |
-| Migrations | Alembic |
-| Monorepo | Turborepo + npm workspaces |
-| Containerization | Docker + docker‑compose |
-| CI/CD | GitHub Actions |
+| Layer            | Technology                                  |
+| ---------------- | ------------------------------------------- |
+| Client           | React + Vite + TypeScript + SWC             |
+| Server           | Python + FastAPI                            |
+| Database         | PostgreSQL (async via SQLAlchemy + asyncpg) |
+| Migrations       | Alembic                                     |
+| Monorepo         | Turborepo + npm workspaces                  |
+| Containerization | Docker + docker‑compose                     |
+| CI/CD            | GitHub Actions                              |
 
 ### Repository Layout
 
@@ -106,20 +106,20 @@ contoso-finance/
 
 Each domain follows a consistent internal structure:
 
-| File | Responsibility |
-|---|---|
-| `router.py` | FastAPI route definitions |
-| `service.py` | Business logic |
-| `repository.py` | Data access (async SQLAlchemy) |
-| `models.py` | ORM models |
-| `schemas.py` | Pydantic request/response schemas |
+| File            | Responsibility                    |
+| --------------- | --------------------------------- |
+| `router.py`     | FastAPI route definitions         |
+| `service.py`    | Business logic                    |
+| `repository.py` | Data access (async SQLAlchemy)    |
+| `models.py`     | ORM models                        |
+| `schemas.py`    | Pydantic request/response schemas |
 
-| Domain | API Prefix | Key Capabilities |
-|---|---|---|
-| **Billing** | `/api/billing` | Invoice CRUD, send, mark paid |
-| **Payments** | `/api/payments` | Process payments, refunds, payment methods |
-| **Reporting** | `/api/reporting` | Generate reports, dashboard metrics |
-| **Settlements** | `/api/settlements` | Create, reconcile, approve settlements |
+| Domain          | API Prefix         | Key Capabilities                           |
+| --------------- | ------------------ | ------------------------------------------ |
+| **Billing**     | `/api/billing`     | Invoice CRUD, send, mark paid              |
+| **Payments**    | `/api/payments`    | Process payments, refunds, payment methods |
+| **Reporting**   | `/api/reporting`   | Generate reports, dashboard metrics        |
+| **Settlements** | `/api/settlements` | Create, reconcile, approve settlements     |
 
 ---
 
@@ -154,6 +154,7 @@ npm run dev
 ```
 
 `npm run dev` automatically:
+
 1. Starts a PostgreSQL container via Docker
 2. Waits for it to be healthy
 3. Runs Alembic database migrations
@@ -186,6 +187,35 @@ cd apps/server && npm run db:reset        # full reset
 ```bash
 curl http://localhost:8000/health
 # → {"status": "healthy", "service": "Contoso Finance"}
+```
+
+### Git Hooks
+
+Git hooks activate automatically after `npm install` (via the `prepare` script). No extra setup needed.
+
+| Hook           | Trigger      | What It Does                                                                  |
+| -------------- | ------------ | ----------------------------------------------------------------------------- |
+| **pre-commit** | `git commit` | Runs **lint-staged** — ESLint + Prettier on TS/JS files, Ruff on Python files |
+| **pre-push**   | `git push`   | Runs the full test suite (`npm test`)                                         |
+| **commit-msg** | `git commit` | Enforces [Conventional Commits](https://www.conventionalcommits.org/) format  |
+
+#### Commit message format
+
+```
+type: short description
+
+# Examples:
+feat: add invoice export endpoint
+fix: correct payment rounding error
+chore: update dependencies
+docs: improve README setup instructions
+```
+
+To skip hooks in an emergency:
+
+```bash
+git commit --no-verify
+git push --no-verify
 ```
 
 ---
