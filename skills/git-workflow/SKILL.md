@@ -122,7 +122,7 @@ refactor(extract): simplify multi-sheet reading logic
 test(transform): add edge cases for ordinal rank parsing
 ```
 
-## Pre-Push Lint Check
+## Pre-Push Verification
 
 **Before pushing a branch, always run the linter against the directories you changed.** This catches lint failures locally instead of waiting for CI to fail — a very common pain point.
 
@@ -149,6 +149,42 @@ cd packages/shared-types && npm run build
 - If you changed both `apps/server/` and `apps/client/`, run both linters.
 - This applies to every push, not just the final one before a PR.
 
+### Full CI check — before creating a PR
+
+Before opening a pull request, run the **full CI pipeline locally** for every area you changed. Do not rely on remote CI to catch failures — fix them before the PR exists.
+
+**If CI is configured in the workspace** (e.g., `.github/workflows/` exists), mirror its checks locally:
+
+1. Identify which CI jobs cover the areas you changed.
+2. Run those checks locally (lint + build + test).
+3. If anything fails, fix it and re-run until all checks pass.
+4. Only then create the PR.
+
+**Contoso Finance CI commands by area:**
+
+```bash
+# Server (apps/server/) — lint + tests
+cd apps/server
+uv run ruff check src/ tests/
+uv run pytest tests/ -v
+
+# Client (apps/client/) — lint + build + tests
+cd apps/client
+npm run lint
+npm run build
+npm run test
+
+# Shared types (packages/shared-types/) — type check
+cd packages/shared-types
+npm run build
+```
+
+**Rules:**
+
+- This applies before PR creation — not every intermediate push. (Linting still applies to every push.)
+- If a test failure is pre-existing and unrelated to your changes, note it in the PR description — don't silently ignore it.
+- If the project has no CI configured, this step is skipped. Linting before push still applies.
+
 ## Pull Requests
 
 ### PR titles
@@ -160,6 +196,36 @@ feat(etl): implement athlete dimension extraction
 fix(transform): correct fuzzy club matching threshold
 docs: add star schema diagram to README
 ```
+
+### PR granularity — one logical change per PR
+
+Each pull request should represent **one logical, reviewable unit of work**. If a reviewer needs to context-switch between unrelated changes while reading your PR, it's too broad.
+
+**Principles:**
+
+- A PR addresses one concern: a feature, a bug fix, a refactor, or a docs update — not several at once.
+- Drive-by fixes (unrelated cleanups spotted during development) get their own separate PR.
+- If a PR grows beyond ~400 lines of meaningful change, consider splitting it. This is a reviewability signal, not a hard rule — a 500-line migration file is fine; a 400-line PR touching 8 unrelated modules is not.
+
+**Decomposing large features into sequential PRs:**
+
+If a feature spans multiple layers or domains, break it into a chain of small PRs that each land independently and leave `main` in a working state.
+
+Example — adding a new "Notifications" domain to Contoso Finance:
+
+| PR | Branch | What it delivers |
+|----|--------|-----------------|
+| 1  | `feat/notifications-model` | Data model + Alembic migration — the table exists but nothing uses it yet |
+| 2  | `feat/notifications-api` | Repository, service, and router (CRUD endpoints) — backend is functional, no UI yet |
+| 3  | `feat/notifications-ui` | React components + API integration — feature is user-visible |
+
+Each PR is independently reviewable, testable, and mergeable. Reviewers see focused diffs instead of a wall of cross-cutting changes.
+
+**When one PR is acceptable for a multi-layer change:**
+
+- The total change is small (e.g., under ~200 lines across all layers)
+- The layers are tightly coupled for this specific change and splitting would make review harder
+- It's a bug fix that necessarily touches model + service + test
 
 ### PR workflow
 
@@ -184,3 +250,8 @@ docs: add star schema diagram to README
 - ❌ Use vague commit messages like `"update files"` or `"WIP"`
 - ❌ Use raw `git push` + GitHub web UI when `gh pr create` can do it
 - ❌ Push without running the linter on changed directories first
+- ❌ Mix unrelated concerns in a single PR (e.g., a feature + an unrelated refactor)
+- ❌ Open mega-PRs that require reviewers to context-switch across domains
+- ❌ Bundle drive-by fixes with the main feature — give them their own PR
+- ❌ Create a PR when local builds or tests are failing
+- ❌ Rely on remote CI as your first line of defense — run checks locally first
