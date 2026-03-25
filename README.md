@@ -158,7 +158,8 @@ This starts the client (port 3000), server (port 8000), and PostgreSQL — fully
 # Install dependencies
 npm install # root + client + shared-types
 cd apps/server # nav to server
-uv venv && uv pip install -r requirements-dev.txt # server setup
+uv venv # create venv
+uv pip install -r requirements-dev.txt # install deps
 
 cd .. # Navigate back to root
 
