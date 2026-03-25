@@ -4,19 +4,6 @@
 
 Work the issues in phase order. Issues within a phase are independent — do them in parallel or any order.
 
-### Phase 0 — Foundation
-
-No dependencies. Do these first to set up the base.
-
-| Issue | What                                                         |
-| ----- | ------------------------------------------------------------ |
-| #2    | Set up client test infrastructure (Vitest + Testing Library) |
-| #9    | Add pre-commit hooks (Husky)                                 |
-| #10   | Set up Prettier                                              |
-| #12   | Add .env.example                                             |
-| #13   | Enable FastAPI OpenAPI docs                                  |
-| #20   | Add .dockerignore files                                      |
-
 ### Phase 1 — Core Backend
 
 Initial Alembic migration is complete. These are all parallel.
