@@ -161,7 +161,7 @@ cd apps/server # nav to server
 uv venv # create venv
 uv pip install -r requirements-dev.txt # install deps
 
-cd .. # Navigate back to root
+cd ../.. # Navigate back to root
 
 # Start everything (PostgreSQL + migrations + client + server)
 npm run dev
