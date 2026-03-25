@@ -120,6 +120,30 @@ Each domain follows a consistent internal structure:
 - **uv** (Python package manager) — [install guide](https://docs.astral.sh/uv/getting-started/installation/)
 - **Docker** (for PostgreSQL) — [install guide](https://docs.docker.com/get-docker/)
 
+### Environment Configuration
+
+Contoso Finance uses environment variables for all runtime configuration. A fully documented template is provided in [`.env.example`](.env.example).
+
+```bash
+# Copy the template to create your local config
+cp .env.example .env
+```
+
+The defaults in `.env.example` are configured for local development — no changes are needed to get started. Your `.env` file is gitignored and will never be committed.
+
+**Key variables:**
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `CONTOSO_DATABASE_URL` | PostgreSQL connection string | `postgresql+asyncpg://…@localhost:5432/contoso_finance` |
+| `CONTOSO_JWT_SECRET` | JWT signing key — **must change for production** | `change-me-in-production` |
+| `CONTOSO_CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["http://localhost:5173"]` |
+| `VITE_API_URL` | Backend URL for the client (build‑time) | `http://localhost:8000` |
+
+All server variables use the `CONTOSO_` prefix and are loaded automatically by [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/). See `.env.example` for the complete list with descriptions.
+
+> **Production:** At a minimum, generate a secure `CONTOSO_JWT_SECRET`, set `CONTOSO_CORS_ORIGINS` to your frontend domain(s), and point `CONTOSO_DATABASE_URL` at your production database. See the "Environment‑Specific Notes" section in `.env.example` for details.
+
 ### Quick Start (Docker only)
 
 ```bash
