@@ -15,7 +15,6 @@ This is a template repository, however the template does not transfer issues. He
 3. Clone your repo
   ```bash
   git clone <YOUR_REPO_URL> # replace with your repo url (e.g. https://github.com/aryxenv/contoso-finance-ai-tour-26)
-  cd <YOUR_REPO_NAME> # replace with your repo name (e.g. contoso-finance-ai-tour-26)
   ```
 4. Clone the template repo & navigate to it
   ```bash
