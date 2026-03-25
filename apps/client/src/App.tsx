@@ -1,7 +1,7 @@
-import { BrowserRouter } from 'react-router-dom'
-import { AppRoutes } from './router'
-import { Layout } from './components/Layout'
-import './App.css'
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './router';
+import { Layout } from './components/Layout';
+import './App.css';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <AppRoutes />
       </Layout>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

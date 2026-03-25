@@ -98,18 +98,18 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ### Types
 
-| Type       | When to use                                    |
-| ---------- | ---------------------------------------------- |
-| `feat`     | New feature or capability                      |
-| `fix`      | Bug fix                                        |
-| `docs`     | Documentation only                             |
-| `refactor` | Code restructure with no behaviour change      |
-| `chore`    | Tooling, deps, CI, config                      |
-| `test`     | Adding or updating tests                       |
-| `style`    | Formatting, whitespace (no logic change)       |
-| `perf`     | Performance improvement                        |
-| `ci`       | CI/CD pipeline changes                         |
-| `build`    | Build system or external dependency changes    |
+| Type       | When to use                                 |
+| ---------- | ------------------------------------------- |
+| `feat`     | New feature or capability                   |
+| `fix`      | Bug fix                                     |
+| `docs`     | Documentation only                          |
+| `refactor` | Code restructure with no behaviour change   |
+| `chore`    | Tooling, deps, CI, config                   |
+| `test`     | Adding or updating tests                    |
+| `style`    | Formatting, whitespace (no logic change)    |
+| `perf`     | Performance improvement                     |
+| `ci`       | CI/CD pipeline changes                      |
+| `build`    | Build system or external dependency changes |
 
 ### Examples
 

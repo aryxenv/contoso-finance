@@ -23,12 +23,12 @@ Externally, Contoso Finance behaves as one product. Internally, it is composed o
 
 ### Why this approach
 
-| Decision | Rationale |
-|---|---|
-| **Monorepo** | One repository means shared tooling, unified CI, atomic cross-module changes, and a single source of truth. |
-| **Modular monolith** | Gives the clarity and scalability benefits of service-oriented design without the deployment and coordination complexity of microservices. |
-| **Strong domain boundaries** | Each module can evolve, scale, or be extracted independently — the architecture grows with the business. |
-| **Single deployment** | Simplifies operations today while keeping the door open for future decomposition. |
+| Decision                     | Rationale                                                                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Monorepo**                 | One repository means shared tooling, unified CI, atomic cross-module changes, and a single source of truth.                                |
+| **Modular monolith**         | Gives the clarity and scalability benefits of service-oriented design without the deployment and coordination complexity of microservices. |
+| **Strong domain boundaries** | Each module can evolve, scale, or be extracted independently — the architecture grows with the business.                                   |
+| **Single deployment**        | Simplifies operations today while keeping the door open for future decomposition.                                                          |
 
 This architecture is designed to move fast now and stay flexible later.
 
@@ -154,13 +154,13 @@ domains/<name>/
 
 **Layer responsibilities — never skip a layer:**
 
-| Layer | Owns | Depends on |
-|---|---|---|
-| **Router** | HTTP methods, status codes, response models, dependency injection | Service |
-| **Service** | Business rules, validation logic, error raising | Repository |
-| **Repository** | Database queries, ORM operations, pagination | Models |
-| **Models** | Table definitions, relationships, constraints | Shared database mixins, shared types |
-| **Schemas** | Request/response shapes, field validation | Pydantic BaseModel |
+| Layer          | Owns                                                              | Depends on                           |
+| -------------- | ----------------------------------------------------------------- | ------------------------------------ |
+| **Router**     | HTTP methods, status codes, response models, dependency injection | Service                              |
+| **Service**    | Business rules, validation logic, error raising                   | Repository                           |
+| **Repository** | Database queries, ORM operations, pagination                      | Models                               |
+| **Models**     | Table definitions, relationships, constraints                     | Shared database mixins, shared types |
+| **Schemas**    | Request/response shapes, field validation                         | Pydantic BaseModel                   |
 
 **Router conventions:**
 
@@ -233,13 +233,13 @@ Alembic is configured with `target_metadata = Base.metadata` in `alembic/env.py`
 
 **Status codes:**
 
-| Operation | Success code |
-|---|---|
-| GET (single or list) | 200 |
-| POST (create) | 201 |
-| PATCH (update) | 200 |
-| DELETE | 204 (no body) |
-| Action endpoints (e.g., `/send`, `/mark-paid`) | 200 |
+| Operation                                      | Success code  |
+| ---------------------------------------------- | ------------- |
+| GET (single or list)                           | 200           |
+| POST (create)                                  | 201           |
+| PATCH (update)                                 | 200           |
+| DELETE                                         | 204 (no body) |
+| Action endpoints (e.g., `/send`, `/mark-paid`) | 200           |
 
 ### Shared types
 
@@ -288,14 +288,14 @@ uv run ruff check src/ tests/        # Linting
 
 Application settings are managed through **Pydantic Settings** in `apps/server/src/contoso_finance/config.py`. All settings can be overridden via environment variables with the `CONTOSO_` prefix.
 
-| Setting | Env variable | Default |
-|---|---|---|
-| `database_url` | `CONTOSO_DATABASE_URL` | `postgresql+asyncpg://postgres:postgres@localhost:5432/contoso_finance` |
-| `jwt_secret` | `CONTOSO_JWT_SECRET` | `change-me-in-production` |
-| `jwt_algorithm` | `CONTOSO_JWT_ALGORITHM` | `HS256` |
-| `jwt_expiration_minutes` | `CONTOSO_JWT_EXPIRATION_MINUTES` | `30` |
-| `cors_origins` | `CONTOSO_CORS_ORIGINS` | `["http://localhost:5173"]` |
-| `debug` | `CONTOSO_DEBUG` | `false` |
+| Setting                  | Env variable                     | Default                                                                 |
+| ------------------------ | -------------------------------- | ----------------------------------------------------------------------- |
+| `database_url`           | `CONTOSO_DATABASE_URL`           | `postgresql+asyncpg://postgres:postgres@localhost:5432/contoso_finance` |
+| `jwt_secret`             | `CONTOSO_JWT_SECRET`             | `change-me-in-production`                                               |
+| `jwt_algorithm`          | `CONTOSO_JWT_ALGORITHM`          | `HS256`                                                                 |
+| `jwt_expiration_minutes` | `CONTOSO_JWT_EXPIRATION_MINUTES` | `30`                                                                    |
+| `cors_origins`           | `CONTOSO_CORS_ORIGINS`           | `["http://localhost:5173"]`                                             |
+| `debug`                  | `CONTOSO_DEBUG`                  | `false`                                                                 |
 
 Settings are also loaded from a `.env` file in `apps/server/` if present. **Never commit `.env` files or real secrets to the repository.**
 
@@ -312,6 +312,7 @@ npm run dev                          # Starts PostgreSQL, runs migrations, launc
 ```
 
 `npm run dev` runs `scripts/dev.js`, which orchestrates:
+
 1. Start PostgreSQL via Docker Compose
 2. Wait for the database to be healthy
 3. Run Alembic migrations (`uv run alembic upgrade head`)
@@ -338,11 +339,11 @@ GitHub Actions (`.github/workflows/ci.yml`) runs on every push to `main` and eve
 
 Three parallel jobs:
 
-| Job | What it checks |
-|---|---|
-| **client** | `npm run lint` → `npm run build` → `npm run test` (Node 20) |
-| **server** | `ruff check` → `pytest` with a PostgreSQL service container (Python 3.12 + uv) |
-| **shared-types** | `npm run build` — type checking via `tsc --noEmit` (Node 20) |
+| Job              | What it checks                                                                 |
+| ---------------- | ------------------------------------------------------------------------------ |
+| **client**       | `npm run lint` → `npm run build` → `npm run test` (Node 20)                    |
+| **server**       | `ruff check` → `pytest` with a PostgreSQL service container (Python 3.12 + uv) |
+| **shared-types** | `npm run build` — type checking via `tsc --noEmit` (Node 20)                   |
 
 The server job provisions a real PostgreSQL instance so tests run against the same database engine used in production. Do not write tests that assume SQLite behavior.
 

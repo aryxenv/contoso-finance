@@ -87,6 +87,7 @@ node excalidraw/scripts/export-excalidraw.js excalidraw/diagrams/excalidraw/<nam
 ```
 
 This automatically:
+
 1. Reads the `.excalidraw` JSON
 2. Forces dark theme + `#000000` background
 3. **Auto-fixes dark standalone text** — any title/annotation text (not inside a shape) with a dark `strokeColor` is rewritten to `#e0e0e0` so it remains visible. Container text stays black (readable on colored fills).

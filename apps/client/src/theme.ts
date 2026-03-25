@@ -1,5 +1,5 @@
-import { createDarkTheme } from '@fluentui/react-components'
-import type { BrandVariants, Theme } from '@fluentui/react-components'
+import { createDarkTheme } from '@fluentui/react-components';
+import type { BrandVariants, Theme } from '@fluentui/react-components';
 
 const brandVariants: BrandVariants = {
   10: '#020508',
@@ -18,9 +18,9 @@ const brandVariants: BrandVariants = {
   140: '#ccebff',
   150: '#dff3ff',
   160: '#f2faff',
-}
+};
 
-const darkTheme = createDarkTheme(brandVariants)
+const darkTheme = createDarkTheme(brandVariants);
 
 export const contosoTheme: Theme = {
   ...darkTheme,
@@ -31,4 +31,4 @@ export const contosoTheme: Theme = {
   colorNeutralForeground1: '#e6edf3',
   colorNeutralForeground2: '#8b949e',
   colorBrandForegroundLink: '#58a6ff',
-}
+};

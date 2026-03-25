@@ -1,12 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import { makeStyles, tokens, Text } from '@fluentui/react-components'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { makeStyles, tokens, Text } from '@fluentui/react-components';
 import {
   BoardRegular,
   ReceiptRegular,
   WalletRegular,
   ChartMultipleRegular,
   BuildingBankRegular,
-} from '@fluentui/react-icons'
+} from '@fluentui/react-icons';
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: <BoardRegular /> },
@@ -14,7 +14,7 @@ const navItems = [
   { to: '/payments', label: 'Payments', icon: <WalletRegular /> },
   { to: '/reporting', label: 'Reporting', icon: <ChartMultipleRegular /> },
   { to: '/settlements', label: 'Settlements', icon: <BuildingBankRegular /> },
-]
+];
 
 const useStyles = makeStyles({
   sidebar: {
@@ -62,20 +62,18 @@ const useStyles = makeStyles({
     width: 'calc(100% - 16px)',
     textAlign: 'left' as const,
   },
-})
+});
 
 export function Sidebar() {
-  const styles = useStyles()
-  const location = useLocation()
-  const navigate = useNavigate()
+  const styles = useStyles();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <nav className={styles.sidebar}>
       {navItems.map((item) => {
         const isActive =
-          item.to === '/'
-            ? location.pathname === '/'
-            : location.pathname.startsWith(item.to)
+          item.to === '/' ? location.pathname === '/' : location.pathname.startsWith(item.to);
         return (
           <button
             key={item.to}
@@ -87,8 +85,8 @@ export function Sidebar() {
               {item.label}
             </Text>
           </button>
-        )
+        );
       })}
     </nav>
-  )
+  );
 }
