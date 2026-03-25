@@ -4,8 +4,6 @@
 
 Built for scale, security, and developer velocity, Contoso Finance powers everything from day‑to‑day invoicing to real‑time financial insights — without the complexity of legacy finance systems.
 
----
-
 ## What Contoso Finance Does
 
 Contoso Finance sits at the center of a company's financial operations, connecting customers, internal teams, and external systems through a single platform.
@@ -19,8 +17,6 @@ Contoso Finance sits at the center of a company's financial operations, connecti
 | **Reporting & Insights** | Give finance teams visibility into cash flow, revenue trends, and operational metrics. |
 | **Automation & Integrations** | Connect with internal tools and external partners to automate routine financial workflows. |
 
----
-
 ## Who It's For
 
 Contoso Finance is designed for organizations that have outgrown spreadsheets and fragmented tools, but don't want to adopt heavyweight enterprise finance software. Typical users include:
@@ -30,8 +26,6 @@ Contoso Finance is designed for organizations that have outgrown spreadsheets an
 - **Product and engineering teams** integrating financial capabilities
 - **Leadership teams** needing reliable financial visibility
 
----
-
 ## Product Philosophy
 
 | Principle | What It Means |
@@ -40,8 +34,6 @@ Contoso Finance is designed for organizations that have outgrown spreadsheets an
 | ✅ **Strong domain boundaries** | Each financial capability is clearly defined and owned, reducing coupling and improving reliability. |
 | ✅ **Secure by default** | Security, compliance, and auditability are first‑class concerns, not add‑ons. |
 | ✅ **Built to evolve** | The platform is designed to grow with the business — from a single product team to a large organization. |
-
----
 
 ## Platform Structure
 
@@ -53,8 +45,6 @@ At a high level, Contoso Finance consists of:
 - **Shared components** that ensure consistency across the product
 
 While the platform runs as a single system, it is intentionally structured so individual capabilities can evolve independently over time. This approach allows Contoso Finance to move fast today while staying ready for future scale.
-
----
 
 ## Architecture
 
@@ -121,8 +111,6 @@ Each domain follows a consistent internal structure:
 | **Reporting** | `/api/reporting` | Generate reports, dashboard metrics |
 | **Settlements** | `/api/settlements` | Create, reconcile, approve settlements |
 
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -188,8 +176,6 @@ curl http://localhost:8000/health
 # → {"status": "healthy", "service": "Contoso Finance"}
 ```
 
----
-
 ## Why This Repository Exists
 
 This repository represents the core Contoso Finance platform. It is intentionally organized to reflect how modern product teams build and maintain real production systems:
@@ -201,8 +187,6 @@ This repository represents the core Contoso Finance platform. It is intentionall
 
 The goal is not just to ship features, but to build a platform that teams can confidently extend and operate.
 
----
-
 ## Looking Ahead
 
 Contoso Finance is built with the future in mind:
@@ -212,8 +196,6 @@ Contoso Finance is built with the future in mind:
 - Integrations and automation capabilities continue to expand
 
 As financial operations become more real‑time, data‑driven, and automated, Contoso Finance aims to be the platform that makes that transition seamless.
-
----
 
 ## About Contoso
 
