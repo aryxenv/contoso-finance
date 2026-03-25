@@ -144,8 +144,10 @@ This starts the client (port 3000), server (port 8000), and PostgreSQL — fully
 
 ```bash
 # Install dependencies
-npm install                                        # root + client + shared-types
-cd apps/server && uv pip install -r requirements-dev.txt  # server
+npm install # root + client + shared-types
+cd apps/server && uv venv && uv pip install -r requirements-dev.txt # server
+
+cd .. # Navigate back to root
 
 # Start everything (PostgreSQL + migrations + client + server)
 npm run dev
